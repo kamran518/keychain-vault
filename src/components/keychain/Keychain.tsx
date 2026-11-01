@@ -49,7 +49,7 @@ function Btn({ variant = "primary", children, className = "", ...rest }:
     danger: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
   }[variant];
   return (
-    <button {...rest} className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-lg px-3 text-[13px] font-medium transition-colors disabled:opacity-50 ${v} ${className}`}>
+    <button {...rest} className={`inline-flex h-8 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-3 text-[13px] font-medium transition-colors disabled:opacity-50 ${v} ${className}`}>
       {children}
     </button>
   );
@@ -234,7 +234,7 @@ function CredentialCard({ a, onEdit, onDelete }: { a: Account; onEdit: () => voi
   const domain = a.website || p.domain;
   const row = (label: string, value: ReactNode, actions: ReactNode) => (
     <div className="flex items-center gap-3 px-3 py-2">
-      <span className="w-24 shrink-0 text-xs text-muted-foreground">{label}</span>
+      <span className="w-32 shrink-0 whitespace-nowrap text-xs text-muted-foreground">{label}</span>
       <span className="min-w-0 flex-1 truncate font-mono text-[13px]">{value}</span>
       <span className="flex shrink-0 items-center">{actions}</span>
     </div>
