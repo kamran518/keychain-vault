@@ -44,7 +44,7 @@ export interface Account {
   name: string;
   username: string;
   password: string;
-  website?: string;
+  website?: string | undefined;
   createdAt: number;
 }
 
@@ -67,7 +67,8 @@ export function generatePassword(length = 20): string {
   const limit = Math.floor(0xffffffff / chars.length) * chars.length;
   while (out.length < length) {
     c.getRandomValues(buf);
-    if (buf[0] < limit) out.push(chars[buf[0] % chars.length]);
+    const v = buf[0] ?? limit;
+    if (v < limit) out.push(chars.charAt(v % chars.length));
   }
   return out.join("");
 }

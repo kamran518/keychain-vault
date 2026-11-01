@@ -297,7 +297,7 @@ const CHIP_IDS: PlatformId[] = ["google", "otheremail", "instagram", "tiktok", "
 const EMAIL_PROVIDERS: PlatformId[] = ["outlook", "yahoo", "icloud", "otheremail"];
 const defaultFor: Record<Category, PlatformId> = { google: "google", email: "outlook", social: "instagram", web: "web" };
 
-function AccountForm({ initial, category, onSave, onCancel }: { initial?: Account; category?: Category; onSave: (a: Omit<Account, "id" | "createdAt">) => void; onCancel: () => void }) {
+function AccountForm({ initial, category, onSave, onCancel }: { initial?: Account | undefined; category?: Category | undefined; onSave: (a: Omit<Account, "id" | "createdAt">) => void; onCancel: () => void }) {
   const [platform, setPlatform] = useState<PlatformId>(initial?.platform ?? (category ? defaultFor[category] : "google"));
   const [name, setName] = useState(initial?.name ?? "");
   const [username, setUsername] = useState(initial?.username ?? "");
@@ -317,10 +317,10 @@ function AccountForm({ initial, category, onSave, onCancel }: { initial?: Accoun
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const er: Record<string, string> = {};
-    if (!name.trim()) er.name = "Account name is required.";
-    if (!username.trim()) er.username = "Username or email is required.";
-    if (!password) er.password = "Password is required.";
-    if (platform === "web" && !website.trim()) er.website = "Website is required.";
+    if (!name.trim()) er['name'] = "Account name is required.";
+    if (!username.trim()) er['username'] = "Username or email is required.";
+    if (!password) er['password'] = "Password is required.";
+    if (platform === "web" && !website.trim()) er['website'] = "Website is required.";
     setErrors(er);
     if (Object.keys(er).length) return;
     onSave({ platform, name: name.trim(), username: username.trim(), password, website: platform === "web" ? website.trim() : undefined });
